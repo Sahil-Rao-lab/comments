@@ -1,0 +1,336 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Promotion Comments.js</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: fantasy;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            /* for Internet Explorer, Edge */
+            scrollbar-width: none;
+            /* for Firefox */
+            overflow-y: scroll;
+            display: none;
+        }
+
+
+        body::-webkit-scrollbar {
+            display: none;
+            /* for Chrome, Safari, and Opera */
+        }
+
+        .hastags_type {
+            background: linear-gradient(45deg, whitesmoke, transparent);
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hastag {
+            background-color: #111;
+            color: #fff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+
+        .hastag:hover {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+            background-color: #fff;
+            color: #111;
+        }
+
+        .modal {
+            background-color: #fff;
+            min-height: 100vh;
+            color: #111;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 0;
+            overflow-y: scroll;
+            z-index: 10;
+        }
+
+        #hasTagName {
+            font-size: 200%;
+        }
+
+        .modal h1 {
+            background-color: #111;
+            color: #fff;
+            width: 100%;
+        }
+
+        #commentedPosts,
+        #disableCommentdPosts {
+            padding: 1rem 2rem;
+        }
+
+        ol>li {
+            margin-bottom: 1rem;
+        }
+
+        .alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .alert>form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .alert>form>button {
+            padding: .5rem 1rem;
+        }
+
+        .loader {
+            z-index: 99;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #111;
+            color: white;
+        }
+
+        .loader>img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader>p {
+            position: absolute;
+            font-size: 2rem;
+        }
+
+        .hidden {
+            display: none;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="loader" class="loader hidden">
+        <audio class="hidden" id="ganja" controls loop>
+            <source src="smoke.mp3" type="audio/mp3">
+        </audio>
+        <img src="./smoke.gif" alt="">
+        <p>
+            In progress...
+        </p>
+    </div>
+
+    <div class="hastags_type " id="hastagDiv">
+        <div class="hastag" id="sculpture"
+            onclick="selectUser('sculpture',['dyharamshalay', 'kanta_bai_mza_m'], `https://www.instagram.com/explore/tags/sculpture/`)">
+            <h1>#sculpture</h1>
+        </div>
+        <div class="hastag" id="wallart"
+            onclick="selectUser('wallart',['dannar_narj_', 'dkdk_dk_dkth'], `https://www.instagram.com/explore/tags/wallart/`)">
+            <h1>#wallart</h1>
+        </div>
+        <div class="hastag" id="digitalart"
+            onclick="selectUser('digitalart',['yogi_nath_38', 'bus_ku_ygc'], `https://www.instagram.com/explore/tags/digitalart/`)">
+            <h1>#digitalart</h1>
+        </div>
+        <div class="hastag" id="painting"
+            onclick="selectUser('painting',['nothing', 'sim_ran_kd'], `https://www.instagram.com/explore/tags/painting/`)">
+            <h1>#painting</h1>
+        </div>
+        <div class="hastag" id="drawaing"
+            onclick="selectUser('drawaing',['lisha_beth_', 'yhash_raj_'], `https://www.instagram.com/explore/tags/drawaing/`)">
+            <h1>#drawaing</h1>
+        </div>
+        <div class="hastag" id="oilpainting"
+            onclick="selectUser('oilpainting',['ahsy.ish', 'santila_bai'], `https://www.instagram.com/explore/tags/oilpainting/`)">
+            <h1>#oilpainting</h1>
+        </div>
+        <div class="hastag" id="abstractart"
+            onclick="selectUser('abstractart',['paise_ni_hai', 'mafi_ya161'], `https://www.instagram.com/explore/tags/abstractart/`)">
+            <h1>#abstractart</h1>
+        </div>
+        <div class="hastag" id="abstract"
+            onclick="selectUser('abstract',['bhaman_b_j', 'sjdjuesk'], `https://www.instagram.com/explore/tags/abstract/`)">
+            <h1>#abstract</h1>
+        </div>
+        <div class="hastag" id="illustration"
+            onclick="selectUser('illustration',['kara_am_cha', 'naitikart1'], `https://www.instagram.com/explore/tags/illustration/`)">
+            <h1>#illustration</h1>
+        </div>
+        <div class="hastag" id="fantasy"
+            onclick="selectUser('fantasy',['bantyart2', 'daljit_singh_par'], `https://www.instagram.com/explore/tags/fantasy/`)">
+            <h1>#fantasy</h1>
+        </div>
+        <div class="hastag" id="artoninstagram"
+            onclick="selectUser('artoninstagram',['promo_hub192', 'nothing'], `https://www.instagram.com/explore/tags/artoninstagram/`)">
+            <h1>#artoninstagram</h1>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="modalDiv">
+        <div id="hasTagName"></div>
+        <br>
+        <h1>SUCCESS</h1>
+        <br>
+        <ol id="commentedPosts">
+        </ol>
+        <br>
+        <h1>FAIL</h1>
+        <br>
+        <ol id="disableCommentdPosts">
+        </ol>
+    </div>
+
+    <div id="alertModal" class="alert hidden">
+        <form id="form">
+            <h1>Select user</h1>
+            <p id="tagNameHidden" class="hidden"></p>
+            <p id="postLinkHidden" class="hidden"></p>
+            <br>
+            <div>
+                <input type="radio" name="user" id="user1" value="">
+                <label id="label1" for="user1"></label>
+            </div>
+            <br>
+            <div>
+                <input type="radio" name="user" id="user2" value="">
+                <label id="label2" for="user2"></label>
+            </div>
+            <br>
+            <button>Submit</button>
+        </form>
+    </div>
+
+    <script>
+        let username = prompt('Enter username');
+        let userpass = prompt('Enter password');
+        (async () => {
+            const rawResponse = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: username, pass: userpass })
+            });
+            const response = await rawResponse.json();
+            if (response.success == true) {
+                alert('Jay Shree Ram !');
+                document.body.style.display = 'block';
+            } else {
+                alert('Invalid Data!')
+            }
+        })();
+
+        function selectUser(tagName, users, link) {
+            document.getElementById('user1').value = users[0];
+            document.getElementById('user2').value = users[1];
+            document.getElementById('label1').innerText = users[0];
+            document.getElementById('label2').innerText = users[1];
+            document.getElementById('alertModal').classList.remove('hidden');
+            document.getElementById('tagNameHidden').innerText = tagName;
+            document.getElementById('postLinkHidden').innerText = link;
+        }
+
+        document.getElementById('form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            let tagName = document.getElementById('tagNameHidden').innerText;
+            let link = document.getElementById('postLinkHidden').innerText;
+            let radioBtns = document.getElementsByName('user');
+            let value;
+            if (radioBtns[0].checked) {
+                value = radioBtns[0].value;
+                doComment(tagName, value, link)
+            } else if (radioBtns[1].checked) {
+                value = radioBtns[1].value;
+                doComment(tagName, value, link)
+            } else {
+                alert('Please select a user, to continue..')
+            }
+        })
+
+        async function doComment(tagname, user, link) {
+            document.getElementById('loader').classList.remove('hidden')
+            document.getElementById('ganja').play();
+
+            const rawResponse = await fetch('/comment', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: user, url: link })
+            });
+            const response = await rawResponse.json();
+            if (response.success == true) {
+                document.getElementById('loader').classList.add('hidden')
+                document.getElementById('ganja').pause();
+                document.getElementById('alertModal').classList.add('hidden');
+                document.getElementById('hastagDiv').classList.add('hidden');
+                document.getElementById('modalDiv').classList.remove('hidden');
+                document.getElementById('hasTagName').innerText = tagname;
+                response.donePosts.map(link => (
+                    document.getElementById('commentedPosts').innerHTML += `<li>
+                                                                                <a target="_blank" href=${link}>${link}</a>
+                                                                            </li>`
+                ))
+                response.falsePosts.map(link => (
+                    document.getElementById('disableCommentdPosts').innerHTML += `<li>
+                                                                                    <a target="_blank" href=${link}>${link}</a>
+                                                                                  </li>`
+                ))
+            } else {
+                alert('Something went wrong, call to developer')
+                document.getElementById('loader').classList.add('hidden')
+                document.getElementById('ganja').pause();
+                document.getElementById('alertModal').classList.add('hidden');
+                document.getElementById('modalDiv').classList.add('hidden');
+                document.getElementById('hastagDiv').classList.remove('hidden');
+            }
+
+        }
+
+    </script>
+
+</body>
+
+
+</html>
